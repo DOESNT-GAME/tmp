@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Crypto Application</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #2E3440;
+color: #D8DEE9;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Input</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLineEdit" name="lineEditInput">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #3B4252;
+    color: #E5E9F0;
+    border: 1px solid #4C566A;
+    border-radius: 4px;
+    padding: 8px;
+}</string>
+         </property>
+         <property name="placeholderText">
+          <string>Enter text or command</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="pushButtonProcess">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #5E81AC;
+    color: white;
+    border-radius: 4px;
+    padding: 8px;
+    min-width: 100px;
+}
+QPushButton:hover {
+    background-color: #81A1C1;
+}</string>
+           </property>
+           <property name="text">
+            <string>Process</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonLoadImage">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #A3BE8C;
+    color: #2E3440;
+    border-radius: 4px;
+    padding: 8px;
+    min-width: 100px;
+}
+QPushButton:hover {
+    background-color: #B5D99C;
+}</string>
+           </property>
+           <property name="text">
+            <string>Load Image</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Output</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QTextEdit" name="textEdit">
+         <property name="styleSheet">
+          <string notr="true">QTextEdit {
+    background-color: #3B4252;
+    color: #E5E9F0;
+    border: 1px solid #4C566A;
+    border-radius: 4px;
+    padding: 8px;
+}</string>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>600</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
