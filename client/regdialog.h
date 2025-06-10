@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QDialog>
+#include <QtWidgets/QDialog>
 
 namespace Ui {
 class RegisterDialog;
@@ -16,7 +16,10 @@ public:
 
 private slots:
     void onRegisterClicked();
+    void onBackToLoginClicked();
 
 private:
     Ui::RegisterDialog *ui;
+signals:
+    void showAuthRequested();
 };

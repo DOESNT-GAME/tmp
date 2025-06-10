@@ -103,6 +103,24 @@ QPushButton:hover {
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QPushButton" name="pushButtonBackToLogin">
+        <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #4C566A;
+    color: #D8DEE9;
+    border-radius: 4px;
+    padding: 10px;
+}
+QPushButton:hover {
+    background-color: #5E81AC;
+}</string>
+        </property>
+        <property name="text">
+            <string>Back to Login</string>
+        </property>
+    </widget>
+</item>
   </layout>
  </widget>
  <resources/>

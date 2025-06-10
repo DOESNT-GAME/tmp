@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "singltoneclient.h"
+#include "singletonclient.h"
+#include "authdialog.h"
 #include <QFileDialog>
+#include <cmath>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,21 +14,43 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Crypto Application");
     ui->textEdit->setReadOnly(true);
 
-    QString lastResponse = SingltoneClient::instance()->latestResponse();
+    QString lastResponse = SingletonClient::instance()->latestResponse();
     if (!lastResponse.isEmpty()) {
         ui->textEdit->append("> Last response:\n" + lastResponse);
     }
 
     connect(ui->pushButtonProcess, &QPushButton::clicked, this, &MainWindow::on_pushButtonProcess_clicked);
     connect(ui->pushButtonLoadImage, &QPushButton::clicked, this, &MainWindow::on_pushButtonLoadImage_clicked);
+    connect(ui->pushButtonSolveEquation, &QPushButton::clicked, this, &MainWindow::on_pushButtonSolveEquation_clicked);
+    connect(ui->pushButtonLogout, &QPushButton::clicked, this, &MainWindow::on_pushButtonLogout_clicked);
 
-    connect(SingltoneClient::instance(), &SingltoneClient::responseReceived, this, [this](const QString& text) {
+    connect(SingletonClient::instance(), &SingletonClient::responseReceived, this, [this](const QString& text) {
         ui->textEdit->append("> Server response:\n" + text);
     });
 }
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+double MainWindow::chordMethod(double a, double b, double epsilon) {
+    double fa = a*a*a - a - 2; // Example function: x^3 - x - 2 = 0
+    double fb = b*b*b - b - 2;
+    double c = 0;
+
+    while (fabs(b - a) > epsilon) {
+        c = a - fa * (b - a) / (fb - fa);
+        double fc = c*c*c - c - 2;
+
+        if (fc * fa < 0) {
+            b = c;
+            fb = fc;
+        } else {
+            a = c;
+            fa = fc;
+        }
+    }
+    return c;
 }
 
 void MainWindow::on_pushButtonProcess_clicked()
@@ -36,13 +61,8 @@ void MainWindow::on_pushButtonProcess_clicked()
         return;
     }
 
-    if (input.startsWith("solve")) {
-        ui->textEdit->append("> Processing solution request: " + input);
-        SingltoneClient::instance()->transmitCommand("SOLUTION:" + input);
-    } else {
-        ui->textEdit->append("> Processing encryption request: " + input);
-        SingltoneClient::instance()->transmitCommand("ENCRYPT:" + input);
-    }
+    ui->textEdit->append("> Processing encryption request: " + input);
+    SingletonClient::instance()->transmitCommand("ENCRYPT:" + input);
 }
 
 void MainWindow::on_pushButtonLoadImage_clicked()
@@ -52,4 +72,29 @@ void MainWindow::on_pushButtonLoadImage_clicked()
         currentImagePath = filePath;
         ui->textEdit->append("> Image loaded: " + filePath);
     }
+}
+
+void MainWindow::on_pushButtonSolveEquation_clicked()
+{
+    double a = ui->doubleSpinBoxA->value();
+    double b = ui->doubleSpinBoxB->value();
+    double epsilon = ui->doubleSpinBoxEpsilon->value();
+
+    if (a >= b) {
+        QMessageBox::warning(this, "Error", "Value 'a' must be less than 'b'");
+        return;
+    }
+
+    // double result = chordMethod(a, b, epsilon);
+    QString solution = QString("Not realized");
+    ui->textEdit->append("> " + solution);
+    SingletonClient::instance()->transmitCommand("EQUATION:" + solution);
+
+}
+
+void MainWindow::on_pushButtonLogout_clicked()
+{
+    AuthDialog *authDialog = new AuthDialog();
+    authDialog->show();
+    this->close();
 }

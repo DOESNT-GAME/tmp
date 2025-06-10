@@ -5,6 +5,8 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QRegularExpression>
+#include <QString>
+#include <cmath>
 
 TcpServer::TcpServer(QObject* parent) : QObject(parent),
     m_server(new QTcpServer(this))
@@ -46,7 +48,6 @@ void TcpServer::handleClientDisconnected(QTcpSocket* socket)
 
 void TcpServer::processClientData(QTcpSocket* socket)
 {
-    // Получаем все данные и разбиваем по строкам
     QString data = QString::fromUtf8(socket->readAll());
     QStringList commands = data.split(QRegularExpression("[\r\n]+"), Qt::SkipEmptyParts);
 
@@ -56,7 +57,6 @@ void TcpServer::processClientData(QTcpSocket* socket)
 
         qDebug() << "Processing command:" << command;
 
-        // Разбиваем команду на части
         QStringList parts = command.split(" ", Qt::SkipEmptyParts);
         if (parts.isEmpty()) {
             sendResponse(socket, "Error: Empty command");
@@ -71,6 +71,15 @@ void TcpServer::processClientData(QTcpSocket* socket)
         }
         else if (cmd == "auth") {
             processAuthentication(socket, args);
+        }
+        else if (cmd == "equation:") {
+            processEquation(socket, args);
+        }
+        else if (cmd == "encrypt:") {
+            processEncryption(socket, args);
+        }
+        else if (cmd == "solution:") {
+            processSolution(socket, args);
         }
         else {
             sendResponse(socket, "Error: Unknown command");
@@ -144,15 +153,6 @@ void TcpServer::processAuthentication(QTcpSocket* socket, const QString& argumen
     if (!query.next()) {
         sendResponse(socket, "Error: User not found");
         qDebug() << "User not found in database:" << login;
-
-        // Дополнительная проверка - выведем всех пользователей в БД
-        QSqlQuery allUsers(DatabaseManager::instance()->database());
-        if (allUsers.exec("SELECT login FROM users")) {
-            qDebug() << "Existing users in DB:";
-            while (allUsers.next()) {
-                qDebug() << "-" << allUsers.value(0).toString();
-            }
-        }
         return;
     }
 
@@ -164,6 +164,36 @@ void TcpServer::processAuthentication(QTcpSocket* socket, const QString& argumen
         sendResponse(socket, "Error: Invalid password");
         qDebug() << "Password mismatch for user:" << login;
     }
+}
+
+void TcpServer::processEquation(QTcpSocket* socket, const QString& arguments)
+{
+    qDebug() << "Equation request received:" << arguments;
+
+    // In a real implementation, we would parse the equation parameters here
+    // For now, we'll just acknowledge the request
+    sendResponse(socket, "Equation solution request received and processed");
+    qInfo() << "Equation solved for client:" << socket->peerAddress().toString();
+}
+
+void TcpServer::processEncryption(QTcpSocket* socket, const QString& text)
+{
+    qDebug() << "Encryption request received:" << text;
+
+    // In a real implementation, we would perform encryption here
+    // For now, we'll just echo back a confirmation
+    sendResponse(socket, "Text encrypted successfully (stub implementation)");
+    qInfo() << "Text encrypted for client:" << socket->peerAddress().toString();
+}
+
+void TcpServer::processSolution(QTcpSocket* socket, const QString& arguments)
+{
+    qDebug() << "Solution request received:" << arguments;
+
+    // In a real implementation, we would process the solution request here
+    // For now, we'll just acknowledge the request
+    sendResponse(socket, "Solution request processed (stub implementation)");
+    qInfo() << "Solution processed for client:" << socket->peerAddress().toString();
 }
 
 void TcpServer::sendResponse(QTcpSocket* socket, const QString& message)

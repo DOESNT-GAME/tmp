@@ -1,16 +1,16 @@
 #pragma once
 
-#include <QTcpSocket>
-#include <QObject>
+#include <QtNetwork/QTcpSocket>
+#include <QtCore/QObject>
 
-class SingltoneClient : public QObject {
+class SingletonClient : public QObject {
     Q_OBJECT
 
 signals:
     void responseReceived(const QString& message);
 
 public:
-    static SingltoneClient* instance();
+    static SingletonClient* instance();
 
     void establishConnection();
     void transmitCommand(const QString& command);
@@ -24,10 +24,10 @@ private slots:
     void connectionLost();
 
 private:
-    explicit SingltoneClient(QObject* parent = nullptr);
+    explicit SingletonClient(QObject* parent = nullptr);
 
     QTcpSocket* m_socket;
-    static SingltoneClient* m_instance;
+    static SingletonClient* m_instance;
 
     QString m_lastResponse;
 };

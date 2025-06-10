@@ -8,22 +8,24 @@ QT += core network
 RESOURCES += resources.qrc
 
 SOURCES += \
-    login.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    reg.cpp \
-    singltoneclient.cpp
+        authdialog.cpp \
+        authregcontainer.cpp \
+        main.cpp \
+        mainwindow.cpp \
+        regdialog.cpp \
+        singletonclient.cpp
 
 HEADERS += \
-    login.h \
+    authdialog.h \
+    authregcontainer.h \
     mainwindow.h \
-    reg.h \
-    singltoneclient.h
+    regdialog.h \
+    singletonclient.h
 
 FORMS += \
-    login.ui \
+    authdialog.ui \
     mainwindow.ui \
-    reg.ui
+    regdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

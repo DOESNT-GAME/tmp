@@ -25,6 +25,9 @@ private slots:
 private:
     void processRegistration(QTcpSocket* socket, const QString& credentials);
     void processAuthentication(QTcpSocket* socket, const QString& credentials);
+    void processEquation(QTcpSocket* socket, const QString& arguments);
+    void processEncryption(QTcpSocket* socket, const QString& text);
+    void processSolution(QTcpSocket* socket, const QString& arguments);
     void sendResponse(QTcpSocket* socket, const QString& message);
 
     QTcpServer* m_server;

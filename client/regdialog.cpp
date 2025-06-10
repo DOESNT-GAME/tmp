@@ -1,6 +1,6 @@
-#include "reg.h"
-#include "ui_reg.h"
-#include "singltoneclient.h"
+#include "regdialog.h"
+#include "ui_regdialog.h"
+#include "singletonclient.h"
 
 RegisterDialog::RegisterDialog(QWidget *parent)
     : QDialog(parent),
@@ -11,14 +11,19 @@ RegisterDialog::RegisterDialog(QWidget *parent)
     ui->textEditStatus->setReadOnly(true);
 
     connect(ui->pushButtonRegister, &QPushButton::clicked, this, &RegisterDialog::onRegisterClicked);
+    connect(ui->pushButtonBackToLogin, &QPushButton::clicked, this, &RegisterDialog::onBackToLoginClicked);
 
-    connect(SingltoneClient::instance(), &SingltoneClient::responseReceived, this, [this](const QString& response) {
+    connect(SingletonClient::instance(), &SingletonClient::responseReceived, this, [this](const QString& response) {
         ui->textEditStatus->setText(response);
 
         if (response.contains("Registration successful", Qt::CaseInsensitive)) {
-            this->accept();
+            emit showAuthRequested();
         }
     });
+}
+
+void RegisterDialog::onBackToLoginClicked() {
+    emit showAuthRequested();
 }
 
 RegisterDialog::~RegisterDialog()
@@ -37,5 +42,5 @@ void RegisterDialog::onRegisterClicked()
     }
 
     QString command = QString("reg %1:%2").arg(username, password);
-    SingltoneClient::instance()->transmitCommand(command);
+    SingletonClient::instance()->transmitCommand(command);
 }
