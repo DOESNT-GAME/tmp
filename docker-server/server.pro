@@ -7,8 +7,10 @@ CONFIG -= app_bundle
 SOURCES += \
         dbmanager.cpp \
         main.cpp \
-        mytcpserver.cpp
+        mytcpserver.cpp \
+        sha384.cpp
 
 HEADERS += \
         dbmanager.h \
-        mytcpserver.h
+        mytcpserver.h \
+        sha384.h

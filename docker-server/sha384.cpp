@@ -1,68 +1,12 @@
-#include "dbmanager.h"
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QDebug>
+// sha384.cpp
+#include "sha384.h"
 #include <array>
+#include <algorithm>
 #include <cstring>
+#include <vector>
+#include <QByteArray>
 
-DatabaseManager* DatabaseManager::m_instance = nullptr;
-
-DatabaseManager::DatabaseManager()
-{
-    m_database = QSqlDatabase::addDatabase("QSQLITE");
-    m_database.setDatabaseName("project_data.db");
-
-    if (!m_database.open()) {
-        qCritical() << "Failed to open database:" << m_database.lastError().text();
-        return;
-    }
-
-    qInfo() << "Database opened successfully";
-    initializeDatabase();
-}
-
-DatabaseManager* DatabaseManager::instance()
-{
-    if (!m_instance) {
-        m_instance = new DatabaseManager();
-    }
-    return m_instance;
-}
-
-QSqlDatabase DatabaseManager::database() const
-{
-    return m_database;
-}
-
-void DatabaseManager::initializeDatabase()
-{
-    QSqlQuery query(m_database);
-
-    if (!query.exec("PRAGMA foreign_keys = ON")) {
-        qWarning() << "Failed to enable foreign keys:" << query.lastError().text();
-    }
-
-    createTables();
-}
-
-void DatabaseManager::createTables()
-{
-    QSqlQuery query(m_database);
-
-    const QStringList tables = {
-        "CREATE TABLE IF NOT EXISTS users ("
-        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "login TEXT UNIQUE NOT NULL, "
-        "password TEXT NOT NULL)",
-
-    };
-
-    for (const auto& tableSql : tables) {
-        if (!query.exec(tableSql)) {
-            qCritical() << "Failed to create table:" << query.lastError().text();
-        }
-    }
-}
+namespace {
 
 // Константы для SHA-384
 constexpr std::array<uint64_t, 8> initialHash = {
@@ -102,13 +46,14 @@ inline uint64_t sigma0(uint64_t x) { return rotr64(x, 28) ^ rotr64(x, 34) ^ rotr
 inline uint64_t sigma1(uint64_t x) { return rotr64(x, 14) ^ rotr64(x, 18) ^ rotr64(x, 41); }
 inline uint64_t gamma0(uint64_t x) { return rotr64(x, 1) ^ rotr64(x, 8) ^ (x >> 7); }
 inline uint64_t gamma1(uint64_t x) { return rotr64(x, 19) ^ rotr64(x, 61) ^ (x >> 6); }
+}
 
-QString DatabaseManager::hashPassword(const QString& password)
+QString SHA384::hash(const QString& input)
 {
     // Преобразуем строку в UTF-8 байты
-    QByteArray input = password.toUtf8();
-    const uint8_t* message = reinterpret_cast<const uint8_t*>(input.constData());
-    uint64_t length = input.size();
+    QByteArray message = input.toUtf8();
+    const uint8_t* msg = reinterpret_cast<const uint8_t*>(message.constData());
+    uint64_t length = message.size();
 
     // Инициализация хеш-значений
     std::array<uint64_t, 8> hash = initialHash;
@@ -117,7 +62,7 @@ QString DatabaseManager::hashPassword(const QString& password)
     uint64_t bitLength = length * 8;
     uint64_t newLength = ((((length + 16) / 128) + 1) * 128) - 1;
     std::vector<uint8_t> paddedMessage(newLength + 1, 0);
-    std::memcpy(paddedMessage.data(), message, length);
+    std::memcpy(paddedMessage.data(), msg, length);
     paddedMessage[length] = 0x80;
 
     // Добавляем длину сообщения в битах в конец (big-endian)

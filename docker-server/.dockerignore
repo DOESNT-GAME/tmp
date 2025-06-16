@@ -1,0 +1,9 @@
+*.o
+*.pro.user
+*.qmake.stash
+Makefile
+build-*
+*.db
+build/
+*.obj
+*.moc
