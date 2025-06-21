@@ -5,8 +5,6 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QRegularExpression>
-#include <QString>
-#include <cmath>
 
 TcpServer::TcpServer(QObject* parent) : QObject(parent),
     m_server(new QTcpServer(this))
@@ -72,38 +70,27 @@ void TcpServer::processClientData(QTcpSocket* socket)
         else if (cmd == "auth") {
             processAuthentication(socket, args);
         }
-        else if (cmd == "equation:") {
-            processEquation(socket, args);
-        }
-        else if (cmd == "encrypt:") {
-            processEncryption(socket, args);
-        }
-        else if (cmd == "decrypt:") {
-            processDecryption(socket, args);
-        }
         else {
-            sendResponse(socket, "Error: Unknown command");
+            // Обработка других команд...
         }
     }
 }
 
 void TcpServer::processRegistration(QTcpSocket* socket, const QString& credentials)
 {
-    const QStringList parts = credentials.split(":");
+    QStringList parts = credentials.split(":");
     if (parts.size() != 2) {
-        sendResponse(socket, "Error: Use format 'reg login:password'");
+        sendResponse(socket, "Error: Use format 'reg login:hashed_password'");
         return;
     }
 
-    const QString login = parts[0].trimmed();
-    const QString password = parts[1].trimmed();
+    QString login = parts[0].trimmed();
+    QString hashedPassword = parts[1].trimmed();
 
-    if (login.isEmpty() || password.isEmpty()) {
+    if (login.isEmpty() || hashedPassword.isEmpty()) {
         sendResponse(socket, "Error: Login and password cannot be empty");
         return;
     }
-
-    QString hashedPassword = DatabaseManager::hashPassword(password);
 
     QSqlQuery query(DatabaseManager::instance()->database());
     query.prepare("SELECT id FROM users WHERE login = :login");
@@ -128,26 +115,14 @@ void TcpServer::processRegistration(QTcpSocket* socket, const QString& credentia
 
 void TcpServer::processAuthentication(QTcpSocket* socket, const QString& arguments)
 {
-    qDebug() << "Auth arguments:" << arguments;
-
-    QStringList creds = arguments.split(":", Qt::SkipEmptyParts);
+    QStringList creds = arguments.split(":");
     if (creds.size() != 2) {
-        sendResponse(socket, "Error: Use format 'auth login:password'");
-        qDebug() << "Invalid auth format, received:" << arguments;
+        sendResponse(socket, "Error: Use format 'auth login:hashed_password'");
         return;
     }
 
     QString login = creds[0].trimmed();
-    QString password = creds[1].trimmed();
-
-    if (login.isEmpty() || password.isEmpty()) {
-        sendResponse(socket, "Error: Login and password cannot be empty");
-        return;
-    }
-
-    QString hashedPassword = DatabaseManager::hashPassword(password);
-
-    qDebug() << "Attempting auth for user:" << login;
+    QString hashedPassword = creds[1].trimmed();
 
     QSqlQuery query(DatabaseManager::instance()->database());
     query.prepare("SELECT password FROM users WHERE login = :login");
@@ -155,47 +130,20 @@ void TcpServer::processAuthentication(QTcpSocket* socket, const QString& argumen
 
     if (!query.exec()) {
         sendResponse(socket, "Error: Database error");
-        qCritical() << "Database error:" << query.lastError().text();
         return;
     }
 
     if (!query.next()) {
         sendResponse(socket, "Error: User not found");
-        qDebug() << "User not found in database:" << login;
         return;
     }
 
     QString dbPassword = query.value(0).toString();
     if (dbPassword == hashedPassword) {
         sendResponse(socket, "Authentication successful");
-        qInfo() << "User authenticated:" << login;
     } else {
         sendResponse(socket, "Error: Invalid password");
-        qDebug() << "Password mismatch for user:" << login;
     }
-}
-
-void TcpServer::processEquation(QTcpSocket* socket, const QString& arguments)
-{
-    qDebug() << "Equation request received:" << arguments;
-
-    sendResponse(socket, "Equation solution request received and processed");
-    qInfo() << "Equation solved for client:" << socket->peerAddress().toString();
-}
-
-void TcpServer::processEncryption(QTcpSocket* socket, const QString& text)
-{
-    qDebug() << "Encryption request received:" << text;
-
-    sendResponse(socket, "Text encrypted successfully (stub implementation)");
-    qInfo() << "Text encrypted for client:" << socket->peerAddress().toString();
-}
-
-void TcpServer::processDecryption(QTcpSocket* socket, const QString& text)
-{
-    qDebug() << "Decryption request received:" << text;
-    sendResponse(socket, "Decryption processed (stub implementation)");
-    qInfo() << "Decryption processed for client:" << socket->peerAddress().toString();
 }
 
 void TcpServer::sendResponse(QTcpSocket* socket, const QString& message)
