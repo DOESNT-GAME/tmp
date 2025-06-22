@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>350</height>
+    <height>354</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@ color: #D8DEE9;</string>
 }</string>
      </property>
      <property name="text">
-      <string>Registration</string>
+      <string>Регистрация</string>
      </property>
     </widget>
    </item>
@@ -44,8 +44,11 @@ color: #D8DEE9;</string>
     padding: 8px;
 }</string>
      </property>
+     <property name="text">
+      <string/>
+     </property>
      <property name="placeholderText">
-      <string>Username</string>
+      <string>Логин</string>
      </property>
     </widget>
    </item>
@@ -60,11 +63,11 @@ color: #D8DEE9;</string>
     padding: 8px;
 }</string>
      </property>
-     <property name="placeholderText">
-      <string>Password</string>
-     </property>
      <property name="echoMode">
-      <enum>QLineEdit::Password</enum>
+      <enum>QLineEdit::EchoMode::Password</enum>
+     </property>
+     <property name="placeholderText">
+      <string>Пароль</string>
      </property>
     </widget>
    </item>
@@ -99,14 +102,14 @@ QPushButton:hover {
 }</string>
      </property>
      <property name="text">
-      <string>Register</string>
+      <string>Зарегистрироваться</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QPushButton" name="pushButtonBackToLogin">
-        <property name="styleSheet">
-            <string notr="true">QPushButton {
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
     background-color: #4C566A;
     color: #D8DEE9;
     border-radius: 4px;
@@ -115,12 +118,12 @@ QPushButton:hover {
 QPushButton:hover {
     background-color: #5E81AC;
 }</string>
-        </property>
-        <property name="text">
-            <string>Back to Login</string>
-        </property>
+     </property>
+     <property name="text">
+      <string>Обратно ко входу в аккаунт</string>
+     </property>
     </widget>
-</item>
+   </item>
   </layout>
  </widget>
  <resources/>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>600</height>
+    <height>708</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,58 +22,58 @@ color: #D8DEE9;</string>
     <item>
      <widget class="QGroupBox" name="groupBoxEquation">
       <property name="title">
-       <string>Equation Solver (Chord Method)</string>
+       <string>Решение уравнений (Метод хорд)</string>
       </property>
       <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QLabel" name="labelA">
          <property name="text">
           <string>a:</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="1" column="1">
         <widget class="QDoubleSpinBox" name="doubleSpinBoxA">
          <property name="value">
           <double>1.000000000000000</double>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="labelB">
          <property name="text">
           <string>b:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="2" column="1">
         <widget class="QDoubleSpinBox" name="doubleSpinBoxB">
          <property name="value">
           <double>2.000000000000000</double>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="labelEpsilon">
          <property name="text">
           <string>Epsilon:</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="3" column="1">
         <widget class="QDoubleSpinBox" name="doubleSpinBoxEpsilon">
          <property name="decimals">
           <number>6</number>
          </property>
          <property name="singleStep">
-          <double>0.000100</double>
+          <double>0.000100000000000</double>
          </property>
          <property name="value">
-          <double>0.001000</double>
+          <double>0.001000000000000</double>
          </property>
         </widget>
        </item>
-       <item row="3" column="0" colspan="2">
+       <item row="4" column="0" colspan="2">
         <widget class="QPushButton" name="pushButtonSolveEquation">
          <property name="styleSheet">
           <string notr="true">QPushButton {
@@ -88,7 +88,27 @@ QPushButton:hover {
 }</string>
          </property>
          <property name="text">
-          <string>Solve Equation</string>
+          <string>Решить уравнение</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="funcInput">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #3B4252;
+    color: #E5E9F0;
+    border: 1px solid #4C566A;
+    border-radius: 4px;
+    padding: 8px;
+}</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>f(x):</string>
          </property>
         </widget>
        </item>
@@ -98,7 +118,7 @@ QPushButton:hover {
     <item>
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>Input</string>
+       <string>Ввод</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
@@ -112,8 +132,30 @@ QPushButton:hover {
     padding: 8px;
 }</string>
          </property>
+         <property name="text">
+          <string/>
+         </property>
          <property name="placeholderText">
-          <string>Enter text or command</string>
+          <string>Введите текст внедряемого сообщения</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButtonLoadImage">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #A3BE8C;
+    color: #2E3440;
+    border-radius: 4px;
+    padding: 8px;
+    min-width: 100px;
+}
+QPushButton:hover {
+    background-color: #B5D99C;
+}</string>
+         </property>
+         <property name="text">
+          <string>Загрузить изображение</string>
          </property>
         </widget>
        </item>
@@ -134,26 +176,35 @@ QPushButton:hover {
 }</string>
            </property>
            <property name="text">
-            <string>Process</string>
+            <string>Внедрить сообщение</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonLoadImage">
+          <widget class="QPushButton" name="pushButtonDecode">
+           <property name="minimumSize">
+            <size>
+             <width>116</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="mouseTracking">
+            <bool>true</bool>
+           </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-    background-color: #A3BE8C;
-    color: #2E3440;
+    background-color: #5E81AC;
+    color: white;
     border-radius: 4px;
     padding: 8px;
     min-width: 100px;
 }
 QPushButton:hover {
-    background-color: #B5D99C;
+    background-color: #81A1C1;
 }</string>
            </property>
            <property name="text">
-            <string>Load Image</string>
+            <string>Достать сообщение</string>
            </property>
           </widget>
          </item>
@@ -165,7 +216,7 @@ QPushButton:hover {
     <item>
      <widget class="QGroupBox" name="groupBox_2">
       <property name="title">
-       <string>Output</string>
+       <string>Вывод</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -202,7 +253,7 @@ QPushButton:hover {
 }</string>
       </property>
       <property name="text">
-       <string>Logout</string>
+       <string>Выйти из аккаунта</string>
       </property>
      </widget>
     </item>
