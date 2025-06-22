@@ -25,32 +25,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButtonLogout, &QPushButton::clicked, this, &MainWindow::on_pushButtonLogout_clicked);
 
     connect(SingletonClient::instance(), &SingletonClient::responseReceived, this, [this](const QString& text) {
-        ui->textEdit->append("> Server response:\n" + text);
+        if (text.contains("Error:")) {
+            ui->textEdit->append("> Error: " + text);
+        } else {
+            ui->textEdit->append("> Server response:\n" + text);
+        }
     });
 }
 
 MainWindow::~MainWindow() {
     delete ui;
-}
-
-double MainWindow::chordMethod(double a, double b, double epsilon) {
-    double fa = a*a*a - a - 2; // Example function: x^3 - x - 2 = 0
-    double fb = b*b*b - b - 2;
-    double c = 0;
-
-    while (fabs(b - a) > epsilon) {
-        c = a - fa * (b - a) / (fb - fa);
-        double fc = c*c*c - c - 2;
-
-        if (fc * fa < 0) {
-            b = c;
-            fb = fc;
-        } else {
-            a = c;
-            fa = fc;
-        }
-    }
-    return c;
 }
 
 void MainWindow::on_pushButtonProcess_clicked()
@@ -76,6 +60,7 @@ void MainWindow::on_pushButtonLoadImage_clicked()
 
 void MainWindow::on_pushButtonSolveEquation_clicked()
 {
+    QString func = ui->funcInput->text().trimmed();
     double a = ui->doubleSpinBoxA->value();
     double b = ui->doubleSpinBoxB->value();
     double epsilon = ui->doubleSpinBoxEpsilon->value();
@@ -85,11 +70,15 @@ void MainWindow::on_pushButtonSolveEquation_clicked()
         return;
     }
 
-    // double result = chordMethod(a, b, epsilon);
-    QString solution = QString("Not realized");
-    ui->textEdit->append("> " + solution);
-    SingletonClient::instance()->transmitCommand("EQUATION:" + solution);
+    // Формируем команду в правильном формате (нижний регистр + пробел)
+    QString equationCmd = QString("equation: %1:%2:%3:%4")
+                              .arg(func)
+                              .arg(a)
+                              .arg(b)
+                              .arg(epsilon);
 
+    ui->textEdit->append("> Sending equation to server: " + equationCmd);
+    SingletonClient::instance()->transmitCommand(equationCmd);
 }
 
 void MainWindow::on_pushButtonLogout_clicked()
