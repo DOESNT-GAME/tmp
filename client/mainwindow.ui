@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>708</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Crypto Application</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #2E3440;
+color: #D8DEE9;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupBoxEquation">
+      <property name="title">
+       <string>Решение уравнений (Метод хорд)</string>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelA">
+         <property name="text">
+          <string>a:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDoubleSpinBox" name="doubleSpinBoxA">
+         <property name="value">
+          <double>1.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="labelB">
+         <property name="text">
+          <string>b:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QDoubleSpinBox" name="doubleSpinBoxB">
+         <property name="value">
+          <double>2.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="labelEpsilon">
+         <property name="text">
+          <string>Epsilon:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QDoubleSpinBox" name="doubleSpinBoxEpsilon">
+         <property name="decimals">
+          <number>6</number>
+         </property>
+         <property name="singleStep">
+          <double>0.000100000000000</double>
+         </property>
+         <property name="value">
+          <double>0.001000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QPushButton" name="pushButtonSolveEquation">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #D08770;
+    color: #2E3440;
+    border-radius: 4px;
+    padding: 8px;
+    min-width: 100px;
+}
+QPushButton:hover {
+    background-color: #EBCB8B;
+}</string>
+         </property>
+         <property name="text">
+          <string>Решить уравнение</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="funcInput">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #3B4252;
+    color: #E5E9F0;
+    border: 1px solid #4C566A;
+    border-radius: 4px;
+    padding: 8px;
+}</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>f(x):</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Ввод</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLineEdit" name="lineEditInput">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #3B4252;
+    color: #E5E9F0;
+    border: 1px solid #4C566A;
+    border-radius: 4px;
+    padding: 8px;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string>Введите текст внедряемого сообщения</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButtonLoadImage">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #A3BE8C;
+    color: #2E3440;
+    border-radius: 4px;
+    padding: 8px;
+    min-width: 100px;
+}
+QPushButton:hover {
+    background-color: #B5D99C;
+}</string>
+         </property>
+         <property name="text">
+          <string>Загрузить изображение</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="pushButtonProcess">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #5E81AC;
+    color: white;
+    border-radius: 4px;
+    padding: 8px;
+    min-width: 100px;
+}
+QPushButton:hover {
+    background-color: #81A1C1;
+}</string>
+           </property>
+           <property name="text">
+            <string>Внедрить сообщение</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonDecode">
+           <property name="minimumSize">
+            <size>
+             <width>116</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="mouseTracking">
+            <bool>true</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #5E81AC;
+    color: white;
+    border-radius: 4px;
+    padding: 8px;
+    min-width: 100px;
+}
+QPushButton:hover {
+    background-color: #81A1C1;
+}</string>
+           </property>
+           <property name="text">
+            <string>Достать сообщение</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Вывод</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QTextEdit" name="textEdit">
+         <property name="styleSheet">
+          <string notr="true">QTextEdit {
+    background-color: #3B4252;
+    color: #E5E9F0;
+    border: 1px solid #4C566A;
+    border-radius: 4px;
+    padding: 8px;
+}</string>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButtonLogout">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #BF616A;
+    color: white;
+    border-radius: 4px;
+    padding: 8px;
+    min-width: 100px;
+}
+QPushButton:hover {
+    background-color: #D08770;
+}</string>
+      </property>
+      <property name="text">
+       <string>Выйти из аккаунта</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>600</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "33333:33333"
+    volumes:
+      - ./project_data.db:/app/project_data.db
+      - .:/app
+    command: bash -c "qmake server.pro && make && ./server"
+    restart: unless-stopped
