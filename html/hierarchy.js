@@ -1,16 +1,8 @@
 var hierarchy =
 [
-    [ "QDialog", null, [
-      [ "AuthDialog", "class_auth_dialog.html", null ],
-      [ "RegisterDialog", "class_register_dialog.html", null ]
-    ] ],
-    [ "QMainWindow", null, [
-      [ "MainWindow", "class_main_window.html", null ]
-    ] ],
+    [ "DatabaseManager", "class_database_manager.html", null ],
     [ "QObject", null, [
-      [ "SingletonClient", "class_singleton_client.html", null ]
+      [ "TcpServer", "class_tcp_server.html", null ]
     ] ],
-    [ "QWidget", null, [
-      [ "AuthRegContainer", "class_auth_reg_container.html", null ]
-    ] ]
+    [ "SHA384", "class_s_h_a384.html", null ]
 ];

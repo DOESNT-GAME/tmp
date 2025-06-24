@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['registerdialog_0',['RegisterDialog',['../class_register_dialog.html',1,'']]]
+  ['tcpserver_0',['TcpServer',['../class_tcp_server.html',1,'']]]
 ];
