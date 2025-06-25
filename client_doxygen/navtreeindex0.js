@@ -1,0 +1,19 @@
+var NAVTREEINDEX0 =
+{
+"annotated.html":[0,0],
+"authdialog_8h_source.html":[1,0,0],
+"authregcontainer_8h_source.html":[1,0,1],
+"class_auth_dialog.html":[0,0,0],
+"class_auth_reg_container.html":[0,0,1],
+"class_main_window.html":[0,0,2],
+"class_register_dialog.html":[0,0,3],
+"class_singleton_client.html":[0,0,4],
+"classes.html":[0,1],
+"files.html":[1,0],
+"hierarchy.html":[0,2],
+"index.html":[],
+"mainwindow_8h_source.html":[1,0,2],
+"pages.html":[],
+"regdialog_8h_source.html":[1,0,3],
+"singletonclient_8h_source.html":[1,0,4]
+};
