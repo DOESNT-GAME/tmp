@@ -1,0 +1,11 @@
+release/main.o
+release/test_equation_solver.o
+release/equation_solver.o
+release/singletonclient.o
+release/mytcpserver.o
+release/dbmanager.o
+release/sha384.o
+release/moc_test_equation_solver.o
+release/moc_equation_solver.o
+release/moc_singletonclient.o
+release/moc_mytcpserver.o

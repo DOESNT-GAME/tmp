@@ -1,0 +1,11 @@
+debug/main.o
+debug/test_equation_solver.o
+debug/equation_solver.o
+debug/singletonclient.o
+debug/mytcpserver.o
+debug/dbmanager.o
+debug/sha384.o
+debug/moc_test_equation_solver.o
+debug/moc_equation_solver.o
+debug/moc_singletonclient.o
+debug/moc_mytcpserver.o
