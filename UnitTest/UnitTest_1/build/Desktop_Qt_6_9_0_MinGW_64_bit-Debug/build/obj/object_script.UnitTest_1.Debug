@@ -1,0 +1,10 @@
+build/obj/regdialog.o
+build/obj/dbmanager.o
+build/obj/sha384.o
+build/obj/singletonclient.o
+build/obj/main.o
+build/obj/test_registration.o
+build/obj/moc_regdialog.o
+build/obj/moc_singletonclient.o
+build/obj/moc_mocksingletonclient.o
+build/obj/moc_test_registration.o
