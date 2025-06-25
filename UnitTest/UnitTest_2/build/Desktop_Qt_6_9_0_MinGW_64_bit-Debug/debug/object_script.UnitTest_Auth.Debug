@@ -1,0 +1,15 @@
+debug/singletonclient.o
+debug/authdialog.o
+debug/authregcontainer.o
+debug/regdialog.o
+debug/test_auth.o
+debug/main.o
+debug/mytcpserver.o
+debug/dbmanager.o
+debug/sha384.o
+debug/moc_singletonclient.o
+debug/moc_authdialog.o
+debug/moc_authregcontainer.o
+debug/moc_regdialog.o
+debug/moc_test_auth.o
+debug/moc_mytcpserver.o

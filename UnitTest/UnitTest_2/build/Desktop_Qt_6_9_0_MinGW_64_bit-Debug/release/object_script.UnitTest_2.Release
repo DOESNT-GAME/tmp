@@ -1,0 +1,15 @@
+release/singletonclient.o
+release/authdialog.o
+release/authregcontainer.o
+release/regdialog.o
+release/test_auth.o
+release/main.o
+release/mytcpserver.o
+release/dbmanager.o
+release/sha384.o
+release/moc_singletonclient.o
+release/moc_authdialog.o
+release/moc_authregcontainer.o
+release/moc_regdialog.o
+release/moc_test_auth.o
+release/moc_mytcpserver.o
